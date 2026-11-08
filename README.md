@@ -1,10 +1,10 @@
-# Hi, I'm Gokul 👋
+# Hello, I'm Gokul 👋
 
 **Middleware Engineer @ Kyndryl** · AWS · DevOps · SRE
 
 I keep business-critical Java platforms running in production. For **3.2+ years** I've worked on a **3,000+ server estate** across **Linux, AIX and Windows**, running **IBM WebSphere ND, Liberty and IBM HTTP Server**, on **24×7 rotational on-call** with **production releases every weekend**.
 
-I apply the same reliability mindset on AWS: systems that **detect failures, recover automatically and alert the right people**, built with **Terraform, Docker, Jenkins and CloudWatch**.
+I apply the same reliability mindset to cloud and Kubernetes: systems that **detect failures, recover automatically and alert the right people**, built with **Terraform, Docker, Kubernetes, Argo CD (GitOps), Prometheus and Grafana**.
 
 ---
 
@@ -19,6 +19,7 @@ I apply the same reliability mindset on AWS: systems that **detect failures, rec
 - Build **IBM WebSphere ND** environments from scratch: cells, profiles, clusters, **IBM HTTP Server** and **web server plug-ins**
 - Administer **IBM Liberty** servers alongside traditional WebSphere
 - Configure **IBM UrbanCode Deploy (UCD)** for automated application deployments
+- Migrate applications to **Okta SSO**: configure the Okta client ID and secret on WebSphere, Liberty and IHS so apps authenticate through single sign-on
 - Run **quarterly fix pack upgrades** for WebSphere, IHS, Liberty and plug-ins across the estate
 
 **Day to day**
@@ -28,17 +29,30 @@ I apply the same reliability mindset on AWS: systems that **detect failures, rec
 
 ---
 
-## 🚀 Featured Project
+## 🚀 Featured Projects
 
-### 🩺 [Self-Healing Containerized Java Application on AWS](https://github.com/Gokul36115/self-healing-java-app-aws)
-JVM crashes and OutOfMemoryErrors are problems I deal with in production. This project detects, recovers from and alerts on them automatically.
+Two projects, one theme: **failures should be detected, healed and alerted on automatically.** First on a single cloud server, then at Kubernetes platform level.
+
+### 1️⃣ [Self-Healing Containerized Java Application on AWS](https://github.com/Gokul36115/self-healing-java-app-aws)
+A Spring Boot service on EC2 that recovers from crashes and OutOfMemoryErrors and e-mails an alert within about a minute.
 
 - 🔍 **Found a silent failure:** after an `OutOfMemoryError` the JVM kept returning 500s while Docker still reported it `healthy`. Fixed with `-XX:+ExitOnOutOfMemoryError`, so the JVM exits and Docker restarts it.
 - 🏗️ **Terraform:** 19 AWS resources (VPC, IAM, EC2 with IMDSv2, CloudWatch, SNS), no SSH, applied from a reviewed plan
 - 🔁 **Jenkins CI/CD:** build → test → Docker image → smoke test → push → deploy with health check
-- 🚨 **Monitoring:** CloudWatch log metric → alarm → SNS e-mail, verified live in about 1 minute
+- 🚨 **Monitoring:** CloudWatch log metric → alarm → SNS e-mail, verified live
 
-`Java` `Spring Boot` `Docker` `Jenkins` `Terraform` `AWS` `CloudWatch` `SNS`
+`Java` `Spring Boot` `Docker` `Jenkins` `Terraform` `AWS EC2 · VPC · IAM` `CloudWatch` `SNS`
+
+### 2️⃣ [Self-Healing Kubernetes Platform: GitOps · SLOs · Observability](https://github.com/Gokul36115/k8s-selfheal-platform)
+The same service on Kubernetes, where the cluster heals the app, Git is the source of truth, and reliability is measured with SLOs.
+
+- ☸️ **Kubernetes self-healing:** startup/liveness/readiness probes, zero-downtime rolling updates, PodDisruptionBudget, HPA autoscaling 2 → 5 pods
+- 🔄 **GitOps with Argo CD:** auto-sync and drift correction; CI is read-only on the repo and releases are a reviewed Git commit
+- 📈 **SRE observability:** Prometheus + Grafana, a 99.5% availability SLO with multi-window error-budget burn-rate alerts
+- 💥 **Chaos-tested live:** 4 automatic container restarts, alerts fired, pods recovered with zero manual steps
+- 🛠️ **Real troubleshooting:** Grafana `CrashLoopBackOff` → `OOMKilled` → fixed through a Git commit
+
+`Kubernetes (k3s)` `Helm` `Argo CD` `GitHub Actions` `Prometheus` `Grafana` `Alertmanager` `Docker`
 
 ---
 
@@ -46,10 +60,12 @@ JVM crashes and OutOfMemoryErrors are problems I deal with in production. This p
 
 | Area | Tools |
 |---|---|
-| **Middleware** | IBM WebSphere ND, Liberty, IBM HTTP Server, web server plug-ins, JVM tuning, KDB keystores, SSL/TLS |
-| **Deployment & Automation** | IBM UrbanCode Deploy (UCD), Jenkins, Terraform, Bash |
+| **Middleware** | IBM WebSphere ND, Liberty, IBM HTTP Server, web server plug-ins, JVM tuning, KDB keystores, SSL/TLS, Okta SSO |
+| **CI/CD & GitOps** | IBM UrbanCode Deploy (UCD), Jenkins, GitHub Actions, Argo CD |
+| **Infrastructure as Code** | Terraform, Helm, Bash |
 | **Cloud** | AWS (EC2, VPC, IAM, S3, CloudWatch, SNS), Microsoft Azure |
-| **Containers** | Docker, Docker Hub, Kubernetes |
+| **Containers & Kubernetes** | Docker, Kubernetes (k3s), Helm, HPA, probes, PodDisruptionBudgets |
+| **Observability & SRE** | Prometheus, Grafana, Alertmanager, CloudWatch, SLOs and error budgets |
 | **Operating Systems** | Linux (RHEL, Ubuntu, Amazon Linux), AIX, Windows Server |
 | **Operations** | 24×7 on-call, ITIL v4, incident and change management, RCA, SOPs |
 
@@ -68,9 +84,9 @@ JVM crashes and OutOfMemoryErrors are problems I deal with in production. This p
 
 ## 🎯 Focus Areas
 
-- ☸️ Kubernetes: deployments, health probes and scaling
-- ☁️ AWS architecture: Solutions Architect track
-- ⚙️ Infrastructure as code and CI/CD automation at scale
+- 🔐 Kubernetes Ingress with automatic TLS (cert-manager) and SSO (OIDC)
+- ☁️ AWS architecture: Solutions Architect track, and running these platforms on EKS
+- ⚙️ Platform engineering: GitOps, policy as code and reliability at scale
 
 ---
 
