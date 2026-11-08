@@ -2,9 +2,11 @@
 
 **Middleware Engineer @ Kyndryl** · AWS · DevOps · SRE
 
+🌐 **Portfolio:** [gokul36115.github.io](https://gokul36115.github.io)
+
 I keep business-critical Java platforms running in production. For **3.2+ years** I've worked on a **3,000+ server estate** across **Linux, AIX and Windows**, running **IBM WebSphere ND, Liberty and IBM HTTP Server**, on **24×7 rotational on-call** with **production releases every weekend**.
 
-I apply the same reliability mindset to cloud and Kubernetes: systems that **detect failures, recover automatically and alert the right people**, built with **Terraform, Docker, Kubernetes, Argo CD (GitOps), Prometheus and Grafana**.
+I apply the same reliability mindset to cloud and Kubernetes: systems that **detect failures, recover automatically and alert the right people**, built with **Terraform, Docker, Kubernetes, Argo CD (GitOps), Prometheus, Grafana and AWS serverless**, and secured with **SSO (OIDC)**.
 
 ---
 
@@ -31,7 +33,7 @@ I apply the same reliability mindset to cloud and Kubernetes: systems that **det
 
 ## 🚀 Featured Projects
 
-Two projects, one theme: **failures should be detected, healed and alerted on automatically.** First on a single cloud server, then at Kubernetes platform level.
+Three projects, one theme: **failures should be detected, healed and alerted on automatically.** First on a single cloud server, then at Kubernetes platform level, then serverless with no servers to manage at all.
 
 ### 1️⃣ [Self-Healing Containerized Java Application on AWS](https://github.com/Gokul36115/self-healing-java-app-aws)
 A Spring Boot service on EC2 that recovers from crashes and OutOfMemoryErrors and e-mails an alert within about a minute.
@@ -54,6 +56,17 @@ The same service on Kubernetes, where the cluster heals the app, Git is the sour
 
 `Kubernetes (k3s)` `Helm` `Argo CD` `GitHub Actions` `Prometheus` `Grafana` `Alertmanager` `Docker`
 
+### 3️⃣ [Site Watchdog: Serverless Uptime & TLS Monitor with SSO Dashboard](https://github.com/Gokul36115/site-watchdog-serverless)
+A serverless monitor that checks websites every 15 minutes for uptime, response time and certificate expiry, alerts on Telegram, and serves a live dashboard behind single sign-on. **[Live dashboard ↗](https://gokul36115.github.io/site-watchdog-serverless/)** (login required)
+
+- ⏱️ **Serverless checks:** EventBridge runs a Python Lambda every 15 minutes: HTTP status, response time and days until the SSL/TLS certificate expires
+- 🚨 **One alert, all problems:** a single Telegram message lists every failing site; verified with an expired certificate and a DNS failure
+- 🔐 **SSO with Auth0 (Okta):** OIDC login with PKCE; API Gateway's JWT authorizer rejects requests without a valid token (`401`) before the Lambda runs
+- 🛡️ **Secure by design:** bot token in SSM Parameter Store (`SecureString`, kept out of Terraform state), least-privilege IAM, CORS locked to the dashboard, API throttling
+- 🏗️ **Terraform:** 13 AWS resources, running cost close to ₹0
+
+`Python` `AWS Lambda` `API Gateway` `EventBridge` `SSM Parameter Store` `Auth0 (Okta)` `OIDC · JWT` `Terraform` `CloudWatch`
+
 ---
 
 ## 🛠️ Tech Stack
@@ -62,8 +75,9 @@ The same service on Kubernetes, where the cluster heals the app, Git is the sour
 |---|---|
 | **Middleware** | IBM WebSphere ND, Liberty, IBM HTTP Server, web server plug-ins, JVM tuning, KDB keystores, SSL/TLS, Okta SSO |
 | **CI/CD & GitOps** | IBM UrbanCode Deploy (UCD), Jenkins, GitHub Actions, Argo CD |
-| **Infrastructure as Code** | Terraform, Helm, Bash |
-| **Cloud** | AWS (EC2, VPC, IAM, S3, CloudWatch, SNS), Microsoft Azure |
+| **Infrastructure as Code & Scripting** | Terraform, Helm, Bash, Python |
+| **Cloud** | AWS (EC2, VPC, IAM, S3, CloudWatch, SNS, Lambda, API Gateway, EventBridge, SSM Parameter Store), Microsoft Azure |
+| **Identity & Security** | Okta SSO, Auth0, OIDC, JWT, PKCE, IAM least privilege, secrets management |
 | **Containers & Kubernetes** | Docker, Kubernetes (k3s), Helm, HPA, probes, PodDisruptionBudgets |
 | **Observability & SRE** | Prometheus, Grafana, Alertmanager, CloudWatch, SLOs and error budgets |
 | **Operating Systems** | Linux (RHEL, Ubuntu, Amazon Linux), AIX, Windows Server |
@@ -84,7 +98,7 @@ The same service on Kubernetes, where the cluster heals the app, Git is the sour
 
 ## 🎯 Focus Areas
 
-- 🔐 Kubernetes Ingress with automatic TLS (cert-manager) and SSO (OIDC)
+- 🔐 Kubernetes Ingress with automatic TLS (cert-manager), and SSO (OIDC) for Grafana and Argo CD
 - ☁️ AWS architecture: Solutions Architect track, and running these platforms on EKS
 - ⚙️ Platform engineering: GitOps, policy as code and reliability at scale
 
@@ -92,6 +106,7 @@ The same service on Kubernetes, where the cluster heals the app, Git is the sour
 
 ## 📬 Let's Connect
 
+- 🌐 [Portfolio](https://gokul36115.github.io)
 - 💼 [LinkedIn](https://www.linkedin.com/in/gokul36115)
 - ✉️ gokul36115@gmail.com
 - 📍 Chennai, India
